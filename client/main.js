@@ -4,11 +4,15 @@ import { Accounts } from 'meteor/accounts-base';
 
 import './main.html';
 
-var currentUser;
+currentUser;
 
 Template.loginButtons.onLogin( function onUserLogin(){
   currentUser = Meteor.user();
-})
+});
+
+Template.editUser.onClick( function onEditUser(){
+
+});
 
 Template.hello.onCreated(function helloOnCreated() {
   // counter starts at 0

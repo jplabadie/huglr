@@ -41,10 +41,10 @@ HowTo.prototype = Object.create(AlexaSkill.prototype);
 HowTo.prototype.constructor = HowTo;
 
 HowTo.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    var speechText = "Welcome to the How To Helper. You can ask a question like, what's the recipe for a chest? ... Now, what can I help you with.";
+    var speechText = "Hugler... online. Prepare for awkward.";
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
-    var repromptText = "For instructions on what you can say, please say help me.";
+    var repromptText = "For instructions on using Huglr, please say help me.";
     response.ask(speechText, repromptText);
 };
 
@@ -69,9 +69,9 @@ HowTo.prototype.intentHandlers = {
         } else {
             var speech;
             if (itemName) {
-                speech = "I'm sorry, I currently do not know the recipe for " + itemName + ". What else can I help with?";
+                speech = "I recognize that option, but have no response for you. How may I help you?";
             } else {
-                speech = "I'm sorry, I currently do not know that recipe. What else can I help with?";
+                speech = "I'm sorry, I do not recognize that option. How may I help you?";
             }
             speechOutput = {
                 speech: speech,
@@ -96,8 +96,9 @@ HowTo.prototype.intentHandlers = {
     },
 
     "AMAZON.HelpIntent": function (intent, session, response) {
-        var speechText = "You can ask questions such as, what's the recipe, or, you can say exit... Now, what can I help you with?";
-        var repromptText = "You can say things like, what's the recipe, or you can say exit... Now, what can I help you with?";
+        var speechText = "You can request to receive a hug, to give a hug, or to exit... Now, what can I help you with?";
+        var repromptText = "You can say things like, I would like to be hugged, or, I would like to give someone a " +
+            "hug... Now, what can I help you with?";
         var speechOutput = {
             speech: speechText,
             type: AlexaSkill.speechOutputType.PLAIN_TEXT
