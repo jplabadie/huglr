@@ -1,7 +1,14 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Accounts } from 'meteor/accounts-base';
 
 import './main.html';
+
+var currentUser;
+
+Template.loginButtons.onLogin( function onUserLogin(){
+  currentUser = Meteor.user();
+})
 
 Template.hello.onCreated(function helloOnCreated() {
   // counter starts at 0
@@ -19,4 +26,11 @@ Template.hello.events({
     // increment the counter when button is clicked
     instance.counter.set(instance.counter.get() + 1);
   },
+});
+
+Accounts.ui.config({
+  requestPermissions: {
+    facebook: ['user_likes']
+    },
+  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
 });
