@@ -1,0 +1,22 @@
+<template name="home">
+  {{#if isUser}}
+    <div name="container">
+      <div class="center">
+        <br>
+        <br>
+        <br>
+        {{> home_map }}
+        <br>
+        <br>
+        {{> home_buttons }}
+      </div>
+    </div>
+  {{else}}
+    <div class="container">
+      <div class="center">
+        {{> loginButtons}}
+      </div>
+    </div>
+  {{/if}}
+
+</template>
