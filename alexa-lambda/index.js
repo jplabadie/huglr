@@ -1,14 +1,4 @@
 /**
-    Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-    Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-
-        http://aws.amazon.com/apache2.0/
-
-    or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
-/**
  * This sample shows how to create a Lambda function for handling Alexa Skill requests that:
  *
  * - Custom slot type: demonstrates using custom slot types to handle a finite set of known values
@@ -22,9 +12,9 @@
 'use strict';
 
 var AlexaSkill = require('./AlexaSkill'),
-    recipes = require('./recipes');
+    statuses = require('./statuses');
 
-var APP_ID = undefined; //OPTIONAL: replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
+var APP_ID = ' amzn1.ask.skill.64dccc6c-16bf-4de3-a3bd-8639e45dd946'; //OPTIONAL: replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
 
 /**
  * MinecraftHelper is a child of AlexaSkill.
@@ -41,37 +31,37 @@ HowTo.prototype = Object.create(AlexaSkill.prototype);
 HowTo.prototype.constructor = HowTo;
 
 HowTo.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    var speechText = "Hugler... online. Prepare for awkward.";
+    var speechText = "Welcome to the How To Helper. You can ask a question like, what's the recipe for a chest? ... Now, what can I help you with.";
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
-    var repromptText = "For instructions on using Huglr, please say help me.";
+    var repromptText = "For instructions on what you can say, please say help me.";
     response.ask(speechText, repromptText);
 };
 
 HowTo.prototype.intentHandlers = {
-    "RecipeIntent": function (intent, session, response) {
+    "ChangeStatusIntent": function (intent, session, response) {
         var itemSlot = intent.slots.Item,
             itemName;
         if (itemSlot && itemSlot.value){
             itemName = itemSlot.value.toLowerCase();
         }
 
-        var cardTitle = "Recipe for " + itemName,
-            recipe = recipes[itemName],
+        var cardTitle = "Status: " + itemName,
+            status = statuses[itemName],
             speechOutput,
             repromptOutput;
-        if (recipe) {
+        if (status) {
             speechOutput = {
-                speech: recipe,
+                speech: status,
                 type: AlexaSkill.speechOutputType.PLAIN_TEXT
             };
-            response.tellWithCard(speechOutput, cardTitle, recipe);
+            response.tellWithCard(speechOutput, cardTitle, status);
         } else {
             var speech;
             if (itemName) {
-                speech = "I recognize that option, but have no response for you. How may I help you?";
+                speech = "I'm sorry, I currently do not know the recipe for " + itemName + ". What else can I help with?";
             } else {
-                speech = "I'm sorry, I do not recognize that option. How may I help you?";
+                speech = "I'm sorry, I currently do not know that recipe. What else can I help with?";
             }
             speechOutput = {
                 speech: speech,
@@ -96,9 +86,8 @@ HowTo.prototype.intentHandlers = {
     },
 
     "AMAZON.HelpIntent": function (intent, session, response) {
-        var speechText = "You can request to receive a hug, to give a hug, or to exit... Now, what can I help you with?";
-        var repromptText = "You can say things like, I would like to be hugged, or, I would like to give someone a " +
-            "hug... Now, what can I help you with?";
+        var speechText = "You can ask questions such as, what's the recipe, or, you can say exit... Now, what can I help you with?";
+        var repromptText = "You can say things like, what's the recipe, or you can say exit... Now, what can I help you with?";
         var speechOutput = {
             speech: speechText,
             type: AlexaSkill.speechOutputType.PLAIN_TEXT
