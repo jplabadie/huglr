@@ -1,0 +1,9 @@
+<template name="map">
+  <div class="map-container">
+    {{#unless gelocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+    {{else}}
+      Geolocation Failed: {{geolocationError}}
+    {{/unless}}
+  </div>
+</template>

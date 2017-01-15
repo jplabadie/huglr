@@ -3,6 +3,9 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
+
+import '../components/map.js';
+import '../components/home_buttons.js';
 //import '../components/home_page_buttons.js';
 
 //import '../components/main_page_buttons.js';
@@ -10,9 +13,8 @@ import { Template } from 'meteor/templating';
   return Meteor.user() ? FlowRouter.go('/main_page') : FlowRouter.go('/');
 })
 */
-/*Template.home.helpers({
+Template.home.helpers({
   isUser() {
     return Meteor.user();
   }
 })
-*/
