@@ -8,16 +8,33 @@ import './home_buttons.html';
 
 Template.home_buttons.events({
   'click .hug_me' (event) {
-    $('li.hug_me_tab').addClass('active');
-    $('li.me_hug_tab').removeClass('active');
+    if (Session.get("hug_me_status")=="on"){
+      $('li.hug_me_tab').removeClass('active');
+      $('li.me_hug_tab').removeClass('active');
+      Session.set("hug_me_status", "off");
+      Session.set("hug_status", "No Hugs");
+    }
+    else{
+      Session.set("hug_me_status", "on");
+      $('li.hug_me_tab').addClass('active');
+      $('li.me_hug_tab').removeClass('active');
+      Session.set("hug_status", "Hug Me");
+    }
 
-    Session.set("hug_status", "Hug Me");
 
   },
   'click .me_hug' (event) {
-    $('li.me_hug_tab').addClass('active');
-    $('li.hug_me_tab').removeClass('active');
-    Session.set("hug_status", "Me Hug");
-
+    if (Session.get("me_hug_status")=="on"){
+      $('li.me_hug_tab').removeClass('active');
+      $('li.hug_me_tab').removeClass('active');
+      Session.set("me_hug_status", "off");
+      Session.set("hug_status", "No Hugs");
+    }
+    else{
+      Session.set("me_hug_status", "off");
+      $('li.me_hug_tab').addClass('active');
+      $('li.hug_me_tab').removeClass('active');
+      Session.set("hug_status", "Me Hug");
+    }
   }
 })
