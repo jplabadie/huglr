@@ -31,7 +31,7 @@ Template.home_buttons.events({
       Session.set("hug_status", "No Hugs");
     }
     else{
-      Session.set("me_hug_status", "off");
+      Session.set("me_hug_status", "on");
       $('li.me_hug_tab').addClass('active');
       $('li.hug_me_tab').removeClass('active');
       Session.set("hug_status", "Me Hug");
